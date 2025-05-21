@@ -6,6 +6,18 @@
   min-height: calc(80vh - 120px); /* Ajustar según la altura del header y footer */
   padding: 10px;
 }
+.chat-date {
+  text-align: center;
+  margin: 12px 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  background-color: #e0e0e0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
 
 /* Estilos para el chat de WhatsApp */
 .whatsapp-container {
@@ -86,6 +98,7 @@
   padding: 8px 12px;
   border-radius: 12px;
   position: relative;
+  margin-left: 10px;
 }
 
 .message.me .message-content {

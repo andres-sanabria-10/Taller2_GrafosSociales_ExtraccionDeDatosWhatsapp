@@ -29,5 +29,30 @@ router.get('/obtener', async (req, res) => {
     }
 });
 
+const { ObjectId } = require('mongoose').Types; // Importa ObjectId desde Mongoose
+
+router.get('/:_id', async (req, res) => {
+    try {
+        const { _id } = req.params;
+
+        // Convierte el string _id a ObjectId
+        const objectId = new ObjectId(_id);
+
+        // Busca el mensaje por _id
+        const message = await Message.findById(objectId);
+
+        if (!message) {
+            return res.status(404).json({ error: 'Mensaje no encontrado' });
+        }
+
+        res.status(200).json(message);
+    } catch (error) {
+        // Captura errores, como si el _id no es válido
+        console.error('Error al obtener el mensaje:', error.message);
+        res.status(500).json({ error: 'Error al obtener el mensaje' });
+    }
+});
+
+
 
 module.exports = router;
