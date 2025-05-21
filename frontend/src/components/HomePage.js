@@ -12,7 +12,7 @@ const colors = [
 
 const userColors = {}
 let colorIndex = 0
-
+//funcion de asignacion de colores para el usuario
 const getColorForUser = (user) => {
   if (!userColors[user]) {
     userColors[user] = colors[colorIndex % colors.length]
@@ -20,7 +20,7 @@ const getColorForUser = (user) => {
   }
   return userColors[user]
 }
-
+//la funcion que muestra la fecha
 const getDateLabel = (dateStr) => {
   const today = new Date()
   const msgDate = new Date(dateStr)
@@ -47,6 +47,8 @@ const HomePage = () => {
   const [analysisData, setAnalysisData] = useState(null)
 
   const handleSelectMessage = (message) => {
+    console.log("Mensaje seleccionado:", message)
+
     setSelectedMessage(message)
     setAnalysisData(null)
 
@@ -95,6 +97,7 @@ const HomePage = () => {
             finalMessages.push({
               type: "message",
               id: index,
+              _id: msg._id,
               text: msg.body || "[mensaje vacío]",
               from,
               sender: msg.from.includes("g.us") ? "other" : "me",
@@ -189,13 +192,13 @@ const HomePage = () => {
                 <p><strong>Sentimiento:</strong> {analysisData.analisis?.sentimiento?.label} ({analysisData.analisis?.sentimiento?.score})</p>
                 <p><strong>Emoción:</strong> {analysisData.analisis?.emocion?.label} ({analysisData.analisis?.emocion?.score})</p>
                 <p><strong>Ironía:</strong> {analysisData.analisis?.ironia?.label}</p>
-                <p><strong>Traducción:</strong> {analysisData.analisis?.texto_traducido}</p>
                 <p><strong>Toxicidad:</strong></p>
                 <ul>
                   {analysisData.analisis?.toxicidad?.map((tox, idx) => (
                     <li key={idx}>{tox.label}: {tox.score}</li>
                   ))}
                 </ul>
+
               </>
             )
           ) : (
