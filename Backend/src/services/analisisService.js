@@ -2,7 +2,7 @@ const axios = require('axios');
 
 async function analizarMensaje(texto) {
   try {
-    const respuesta = await axios.post('http://localhost:5001/analizar', {
+    const respuesta = await axios.post('http://localhost:5001/api/analizar', {
       texto,
     });
     return respuesta.data;

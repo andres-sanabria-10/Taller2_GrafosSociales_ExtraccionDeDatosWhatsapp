@@ -16,7 +16,7 @@ async function setupClientEvents(client) {
 
         if (!chat) return console.log('Chat no encontrado.');
 
-        const messages = await chat.fetchMessages({ limit: 100 });
+        const messages = await chat.fetchMessages({ limit: 200 });
         messages.forEach(msg => saveMessageToDB(msg));
     });
 
