@@ -19,10 +19,10 @@ const columnasTotales = [
 ];
 
 const EMOCIONES = [
-  "admiration","amusement","anger","annoyance","approval","caring","confusion",
-  "curiosity","desire","disappointment","disapproval","disgust","embarrassment",
-  "excitement","fear","gratitude","grief","joy","love","nervousness","optimism",
-  "pride","realization","relief","remorse","sadness","surprise","neutral"
+  "admiration", "amusement", "anger", "annoyance", "approval", "caring", "confusion",
+  "curiosity", "desire", "disappointment", "disapproval", "disgust", "embarrassment",
+  "excitement", "fear", "gratitude", "grief", "joy", "love", "nervousness", "optimism",
+  "pride", "realization", "relief", "remorse", "sadness", "surprise", "neutral"
 ];
 
 const columnasEmocion = [
@@ -37,8 +37,21 @@ function Grafos() {
   const [esGrafoPrincipal, setEsGrafoPrincipal] = useState(true);
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const [rankingData, setRankingData] = useState([]);
+  const [grafoAusentes, setGrafoAusentes] = useState(null);
 
-  // 1) Grafo Principal sin emociones/sentimientos
+  const fetchGrafoAusentes = () => {
+    fetch("http://localhost:5001/api/usuarios-ausentes")
+      .then(res => res.json())
+      .then(data => {
+        setGraphData(data);
+        setGrafoAusentes(data);
+        setRankingData([]);
+        setEsGrafoPrincipal(false);
+        setModo("ausentes"); // <- MODO AÑADIDO PARA CONTROLAR LA VISTA
+      })
+      .catch(err => console.error("Error cargando usuarios ausentes:", err));
+  };
+
   const fetchGrafoPrincipal = () => {
     fetch("http://localhost:5001/api/grafoSinEmociones")
       .then(res => res.json())
@@ -68,7 +81,6 @@ function Grafos() {
       .catch(err => console.error("Error cargando totales:", err));
   };
 
-  // 2) Grafo de Sentimientos o Emociones
   const fetchGraphData = modoActual => {
     const endpoint = modoActual === "sentimiento"
       ? "http://localhost:5001/api/grafo?tipo=sentimiento"
@@ -127,12 +139,11 @@ function Grafos() {
       .catch(err => console.error(`Error cargando datos de ${modoActual}:`, err));
   };
 
-  // Efecto principal: carga según el modo o grafo principal
   useEffect(() => {
     if (esGrafoPrincipal) {
       fetchGrafoPrincipal();
       fetchTotales();
-    } else {
+    } else if (modo !== "ausentes") {
       fetchGraphData(modo);
       fetchRankingData(modo);
       const intervalo = setInterval(() => fetchRankingData(modo), 1000);
@@ -147,25 +158,42 @@ function Grafos() {
           <h2 className="grafos-card-title">
             {esGrafoPrincipal
               ? "Grafo Principal"
+              : modo === "ausentes"
+              ? "Usuarios Ausentes"
               : `Visualización de comunidades por ${modo}`}
           </h2>
+
           <div className="grafos-graph-placeholder">
             <div className="grafos-placeholder-content">
-              <ForceGraph2D
-                graphData={graphData}
-                nodeColor={node => node.color}
-                nodeLabel={node =>
-                  esGrafoPrincipal
-                    ? `Número: ${node.id}`
-                    : `Número: ${node.id} | ${modo}: ${node[modo]}`
-                }
-                linkColor={() => "black"}
-                linkWidth={1}
-                linkCanvasLabel={link => `Peso: ${link.weight}`}
-                linkLabel={link => `Peso: ${link.weight}`}
-                width={600}
-                height={400}
-              />
+              {modo === "ausentes" ? (
+                <div className="cards-container">
+                  {grafoAusentes?.nodes?.map((usuario, index) => (
+                    <div key={index} className="user-card">
+                      <h3>{usuario.id}</h3>
+                      <p>{usuario.nombre}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ForceGraph2D
+                  graphData={{
+                    nodes: graphData.nodes || [],
+                    links: graphData.links || [],
+                  }}
+                  nodeColor={node => node.color}
+                  nodeLabel={node =>
+                    esGrafoPrincipal
+                      ? `Número: ${node.id}`
+                      : `Número: ${node.id} | ${modo}: ${node[modo]}`
+                  }
+                  linkColor={() => "black"}
+                  linkWidth={1}
+                  linkCanvasLabel={link => `Peso: ${link.weight}`}
+                  linkLabel={link => `Peso: ${link.weight}`}
+                  width={600}
+                  height={400}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -173,15 +201,16 @@ function Grafos() {
         <div className="grafos-buttons-section">
           <button
             className="grafos-action-button"
-            onClick={() => setEsGrafoPrincipal(true)}
+            onClick={() => {
+              setEsGrafoPrincipal(true);
+              setModo("sentimiento"); // restauramos el modo
+            }}
           >
             Grafo Principal
           </button>
 
           <button
-            className={`grafos-action-button ${
-              !esGrafoPrincipal && modo === "sentimiento" ? "active" : ""
-            }`}
+            className={`grafos-action-button ${!esGrafoPrincipal && modo === "sentimiento" ? "active" : ""}`}
             onClick={() => {
               setEsGrafoPrincipal(false);
               setModo("sentimiento");
@@ -189,10 +218,9 @@ function Grafos() {
           >
             📈 Detección de comunidades en sentimiento
           </button>
+
           <button
-            className={`grafos-action-button ${
-              !esGrafoPrincipal && modo === "emocion" ? "active" : ""
-            }`}
+            className={`grafos-action-button ${!esGrafoPrincipal && modo === "emocion" ? "active" : ""}`}
             onClick={() => {
               setEsGrafoPrincipal(false);
               setModo("emocion");
@@ -200,22 +228,29 @@ function Grafos() {
           >
             📈 Detección de comunidades en emociones
           </button>
-          <button className="grafos-action-button">📈 Análisis de Ironía</button>
-          <button className="grafos-action-button">📈 Análisis de Toxicidad</button>
+
+          <button
+            className="grafos-action-button"
+            onClick={fetchGrafoAusentes}
+          >
+            👤 Análisis de Usuarios ausentes
+          </button>
         </div>
       </div>
 
-      {/* Tabla final */}
-      <Tabla
-        data={rankingData}
-        columns={
-          esGrafoPrincipal
-            ? columnasTotales
-            : modo === "emocion"
-            ? columnasEmocion
-            : columnas
-        }
-      />
+      {/* Mostrar tabla solo si NO estamos en modo ausentes */}
+      {modo !== "ausentes" && (
+        <Tabla
+          data={rankingData}
+          columns={
+            esGrafoPrincipal
+              ? columnasTotales
+              : modo === "emocion"
+              ? columnasEmocion
+              : columnas
+          }
+        />
+      )}
     </div>
   );
 }

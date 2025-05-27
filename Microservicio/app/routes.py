@@ -3,6 +3,7 @@ from app.analysis import analyze_text
 from app.deteccion_Comunidades import  construir_grafo_con_kmeans_sentimientos
 from app.DeteccionComunidadEmociones import  construir_grafo_con_kmeans_emociones
 from app.GrafoPrincipal import construir_grafo_sin_emociones
+from app.Ausente import obtener_usuarios_ausentes
 
 
 # Creamos un solo blueprint para todos los endpoints relacionados
@@ -46,3 +47,14 @@ def obtener_grafo_sin_emociones():
 
     
 
+@api_blueprint.route("/api/usuarios-ausentes", methods=["GET"])
+def usuarios_ausentes():
+    ausentes = obtener_usuarios_ausentes()
+
+    # Convertir los ausentes en nodos del grafo
+    nodes = [{"id": numero, "nombre": f"Usuario {i+1}"} for i, numero in enumerate(ausentes)]
+
+    # No hay relaciones (links), así que dejamos vacío
+    links = []
+
+    return jsonify({"nodes": nodes, "links": links})
