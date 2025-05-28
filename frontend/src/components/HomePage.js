@@ -4,10 +4,41 @@ import React, { useEffect, useState } from "react"
 import "./HomePage.css"
 
 const colors = [
-  "#FFCDD2", "#F8BBD0", "#E1BEE7", "#D1C4E9", "#C5CAE9",
-  "#BBDEFB", "#B3E5FC", "#B2EBF2", "#B2DFDB", "#C8E6C9",
-  "#DCEDC8", "#F0F4C3", "#FFF9C4", "#FFECB3", "#FFE0B2",
-  "#FFCCBC", "#D7CCC8", "#F5F5F5", "#CFD8DC", "#E0F7FA"
+ "#A2D2FF", // celeste claro vibrante
+  "#83C5BE", // verde agua medio
+  "#BFD7EA", // azul nube
+  "#AED9E0", // turquesa muy suave
+  "#B4D4C6", // verde menta suave
+  "#B1D0E0", // azul claro elegante
+  "#A0C1B8", // verde seco claro
+  "#C7DAD4", // gris verdoso frío
+  "#A3C4BC", // gris con verde claro
+  "#B2DFDB", // turquesa pastel saturado (más brillante)
+  "#C1DBE3", // azul niebla
+  "#B9D6D3", // verde mar suave
+  "#B3D9C4", // verde campo claro
+  "#B8E0D2", // verde mar medio
+  "#CDEDF6", // azul cielo suave
+  "#C6E2DD", // verde pálido vibrante
+  "#D0EBE8", // aqua claro
+  "#C9E4DE", // jade claro
+  "#CCE2CB", // verde claro saturado
+  "#CEDFD9", // gris verdoso
+  "#A7C5BD", // verde musgo suave
+  "#B5DAD9", // azul/verde muy equilibrado
+  "#C2E7D9", // verde agua
+  "#C4D7E0", // azul grisáceo elegante
+  "#B9CDD2", // azul humo
+  "#B0D9E2", // azul hielo claro
+  "#C3E0E5", // azul con gris
+  "#ABC8C7", // azul petróleo suave
+  "#D2F0F4", // aqua brillante
+  "#B3CCC5", // verde cemento
+  "#D0E8E0", // verde frío
+  "#B6D9D2", // verde fresco
+  "#B9D0D6", // azul mar
+  "#B4D4D1", // verde oceánico
+  "#BBDDE2"  // azul gris claro
 ]
 
 const userColors = {}

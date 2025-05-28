@@ -19,9 +19,9 @@ body {
 
 /* Header Styles - Mayor contraste */
 .header-main {
-  background-color: #9b4dca; /* Púrpura medio - buen contraste */
+  background-color: #075E54; /* Púrpura medio - buen contraste */
   padding: 15px 0;
-  border-bottom: 1px solid #8a3ab9;
+  border-bottom: 1px solid #075E54;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -58,18 +58,20 @@ body {
 }
 
 .nav-link:hover {
-  color: #9b4dca !important; /* Púrpura */
-  background-color: #ffffff; /* Fondo blanco al pasar el mouse */
+  color: #4a7958 !important; /* Púrpura */
+  background-color: #e4ece5; /* Fondo blanco al pasar el mouse */
 }
 
 /* Footer Styles - Diferente del header para mejor contraste */
 .footer-main {
-  background-color: #f8a5c2; /* Rosa pastel más intenso */
+  background-color: #075E54; /* Rosa pastel más intenso */
   padding: 15px 0;
-  border-top: 1px solid #f78fb3;
+  border-top: 1px solid #075E54;
   margin-top: auto;
-  color: #4a4a4a !important;
+  color: #f3f2f2 !important;
 }
+
+
 
 /* Home Page Styles - Fondo claro pastel */
 .home-container {
@@ -79,7 +81,7 @@ body {
 }
 
 .welcome-title {
-  color: #9b4dca; /* Púrpura medio - consistente con header */
+  color: #eae4ee; /* Púrpura medio - consistente con header */
   margin-bottom: 20px;
   font-size: 2.5rem;
   font-weight: bold;
@@ -113,7 +115,7 @@ body {
 }
 
 .card-title {
-  color: #9b4dca; /* Púrpura medio - consistente con header */
+  color: #ece5f0; /* Púrpura medio - consistente con header */
   margin-bottom: 15px;
   font-size: 1.5rem;
   font-weight: bold;
@@ -127,15 +129,15 @@ body {
 
 /* Botones - Mayor contraste */
 .btn-primary {
-  background-color: #9b4dca !important; /* Púrpura medio */
-  border-color: #9b4dca !important;
+  background-color: #eae4ee !important; /* Púrpura medio */
+  border-color: #e8e3eb !important;
   color: #ffffff !important; /* Blanco para mejor contraste */
   font-weight: 600;
 }
 
 .btn-primary:hover {
-  background-color: #8a3ab9 !important; /* Púrpura más oscuro */
-  border-color: #8a3ab9 !important;
+  background-color: #e8e5e9 !important; /* Púrpura más oscuro */
+  border-color: #f0ecf1 !important;
 }
 
 .btn-secondary {
@@ -169,13 +171,13 @@ body {
 }
 
 .header {
-  background-color: #9b4dca; /* Púrpura medio - consistente con header */
+  background-color: #ede8f0; /* Púrpura medio - consistente con header */
   color: #ffffff; /* Blanco para mejor contraste */
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
   text-align: center;
-  border: 1px solid #8a3ab9;
+  border: 1px solid #e4dce9;
 }
 
 input[type="range"] {
@@ -211,21 +213,21 @@ label {
 .form-select:focus {
   background-color: #fff;
   color: #4a4a4a;
-  border-color: #9b4dca; /* Púrpura medio */
+  border-color: #e9e4ec; /* Púrpura medio */
   box-shadow: 0 0 0 0.25rem rgba(155, 77, 202, 0.25);
 }
 
 /* Estilos para los sliders */
 .form-range::-webkit-slider-thumb {
-  background: #9b4dca; /* Púrpura medio */
+  background: #e3e0e6; /* Púrpura medio */
 }
 
 .form-range::-moz-range-thumb {
-  background: #9b4dca; /* Púrpura medio */
+  background: #e3dfe6; /* Púrpura medio */
 }
 
 .form-range::-ms-thumb {
-  background: #9b4dca; /* Púrpura medio */
+  background: #ede9f0; /* Púrpura medio */
 }
 
 /* Estilo para el panel de modulación */
@@ -237,7 +239,7 @@ label {
 
 /* Estilos para los títulos de las secciones */
 h5 {
-  color: #9b4dca; /* Púrpura medio - consistente con header */
+  color: #e5dfe9; /* Púrpura medio - consistente con header */
   border-bottom: 1px solid #f78fb3; /* Rosa más intenso */
   padding-bottom: 8px;
   margin-bottom: 15px;
@@ -300,7 +302,7 @@ h5 {
 }
 
 .whatsapp-header {
-  background-color: #9b4dca; /* Púrpura medio - consistente con header */
+  background-color: #e8e3eb; /* Púrpura medio - consistente con header */
   padding: 12px 16px;
   display: flex;
   align-items: center;

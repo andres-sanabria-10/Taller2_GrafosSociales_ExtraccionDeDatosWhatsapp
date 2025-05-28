@@ -140,16 +140,37 @@ function Grafos() {
   };
 
   useEffect(() => {
+  // Carga inicial según el tipo de grafo
+  if (esGrafoPrincipal) {
+    fetchGrafoPrincipal();
+    fetchTotales();
+  } else if (modo === "ausentes") {
+    fetchGraphData(modo); // o fetchAusentes() si tienes una función específica
+    fetchRankingData(modo); // si también hay ranking para ausentes
+  } else {
+    fetchGraphData(modo);
+    fetchRankingData(modo);
+  }
+
+  // Intervalo que actualiza según el modo
+  const intervalo = setInterval(() => {
     if (esGrafoPrincipal) {
       fetchGrafoPrincipal();
       fetchTotales();
-    } else if (modo !== "ausentes") {
+    } else if (modo === "ausentes") {
+      fetchGraphData(modo); // o fetchAusentes()
+      fetchRankingData(modo); // si aplica
+    } else {
       fetchGraphData(modo);
       fetchRankingData(modo);
-      const intervalo = setInterval(() => fetchRankingData(modo), 1000);
-      return () => clearInterval(intervalo);
     }
-  }, [modo, esGrafoPrincipal]);
+  }, 1000);
+
+  // Limpiar el intervalo al desmontar o cambiar dependencias
+  return () => clearInterval(intervalo);
+
+}, [modo, esGrafoPrincipal]);
+
 
   return (
     <div className="grafos-container">

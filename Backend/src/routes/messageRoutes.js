@@ -8,6 +8,8 @@ const getMessageById = require('../services/ObtenerMensajePorId'); // importa el
 
 router.post('/', async (req, res) => {
     try {
+        console.log('REQ.BODY:', req.body); // 👈 Esto te mostrará qué está llegando
+
         const { from, body, timestamp } = req.body;
         const fakeMessage = {
             from,
